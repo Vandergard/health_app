@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="d-flex justify-content-between">
+            <h3>Patient Details</h3>
+            <div>
+              <%= link_to 'Back', patients_path, class: 'btn btn-secondary' %>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @patient.name %></h5>
+          <p class="card-text">Age: <%= age(@patient.date_of_birth) %></p>
+          <p class="card-text">Notes: <%= @patient.notes %></p>
+          <% if @patient.photo.attached? %>
+            <div class="mb-3">
+              <%= image_tag @patient.photo, class: "img-thumbnail", alt: "Patient photo" %>
+            </div>
+          <% else %>
+            <p>No photo available</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

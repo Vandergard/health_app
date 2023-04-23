@@ -1,0 +1,60 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ @import "bootstrap";
+
+
+
+  /* Add some top padding to the container */
+.container {
+    padding-top: 50px;
+}
+  
+  /* Add custom styles for the card */
+.form-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+  
+/* Add custom styles for the card header */
+.form-card .card-header {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Add custom styles for the form labels */
+.form-label {
+    color: #333;
+    font-weight: bold;
+}
+
+/* Add some bottom margin to the form groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Add some top and bottom padding to the card */
+.card {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/* Add some top and bottom padding to the submit button */
+.btn-block {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+  

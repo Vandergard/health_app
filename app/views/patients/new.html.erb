@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card form-card">
+        <div class="card-header">
+          <h3 class="card-title text-center">Add New Patient</h3>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @patient, local: true, class: 'needs-validation', novalidate: true do |form| %>
+            <div class="form-group">
+                <%= form.label :first_name, class: 'form-label' %>
+                <%= form.text_field :first_name, class: 'form-control', required: true %>
+            </div>
+            <div class="form-group">
+                <%= form.label :last_name, class: 'form-label' %>
+                <%= form.text_field :last_name, class: 'form-control', required: true %>
+            </div>
+            <div class="form-group">
+                <%= form.label :date_of_birth, "Date of Birth" %>
+                <%= form.date_field :date_of_birth, class: "form-control" %>
+            </div>
+            <div class="form-group">
+                <%= form.label :diagnosis, class: 'form-label' %>
+                <%= form.text_field :diagnosis, class: 'form-control', required: true %>
+            </div>
+            <div class="form-group">
+                <%= form.label :notes, class: 'form-label' %>
+                <%= form.text_area :notes, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <%= form.label :photo, class: 'form-label' %>
+                <%= form.file_field :photo, class: 'form-control' %>
+            </div>
+            <div class="form-group">
+                <%= form.submit 'Save', class: 'btn btn-primary btn-block' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
