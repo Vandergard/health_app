@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_23_124731) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_29_120042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_124731) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "exercises", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "tags", default: [], array: true
+    t.text "equipment"
+  end
+
   create_table "patients", force: :cascade do |t|
     t.string "name"
     t.string "gender"
@@ -64,18 +73,66 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_23_124731) do
     t.text "diagnosis"
   end
 
+  create_table "set_configs", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "weight"
+    t.integer "time_seconds"
+    t.integer "distance"
+    t.integer "speed"
+    t.integer "incline"
+    t.integer "pulse"
+    t.integer "rubber_support"
+    t.boolean "hypoxia"
+    t.integer "pauses_count"
+    t.text "other_details"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "set_results", force: :cascade do |t|
+    t.string "set_comp_code"
+    t.bigint "patients_id", null: false
+    t.bigint "trainings_id", null: false
+    t.bigint "set_configs_id", null: false
+    t.text "self_perception"
+    t.text "assesment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patients_id"], name: "index_set_results_on_patients_id"
+    t.index ["set_configs_id"], name: "index_set_results_on_set_configs_id"
+    t.index ["trainings_id"], name: "index_set_results_on_trainings_id"
+  end
+
+  create_table "sets", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "exercise_id", null: false
+    t.integer "reps"
+    t.integer "duration"
+    t.integer "set_rest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_id"], name: "index_sets_on_exercise_id"
+  end
+
   create_table "trainings", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "category"
     t.string "difficulty"
-    t.bigint "patient_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["patient_id"], name: "index_trainings_on_patient_id"
+    t.bigint "sets", default: [], array: true
+    t.integer "rests", default: [], array: true
+    t.integer "counts", default: [], array: true
+    t.bigint "set_configs", default: [], array: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "trainings", "patients"
+  add_foreign_key "set_results", "patients", column: "patients_id"
+  add_foreign_key "set_results", "set_configs", column: "set_configs_id"
+  add_foreign_key "set_results", "trainings", column: "trainings_id"
+  add_foreign_key "sets", "exercises"
 end
