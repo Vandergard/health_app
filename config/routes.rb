@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'exercises/new'
+  get 'exercises/create'
   # get 'articles/index'
   # get 'articles/new'
   # get 'articles/create'
@@ -29,5 +31,6 @@ Rails.application.routes.draw do
   resources :patients, only: [:new, :create, :show]
   resources :trainings
   resources :articles
+  resources :exercises, only: [:new, :create, :show, :edit]
   root 'patients#index'
 end

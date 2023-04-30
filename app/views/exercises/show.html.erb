@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card form-card">
+        <div class="card-header">
+          <h3 class="card-title text-center"><%= @exercise.name %></h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong>Description:</strong>
+            <%= @exercise.description %>
+          </p>
+          <p>
+            <strong>Tags:</strong>
+            <%= @exercise.tags.join(', ') %>
+          </p>
+          <p>
+            <strong>Equipment:</strong>
+            <%= @exercise.equipment %>
+          </p>
+          <% if @exercise.picture.attached? %>
+            <div class="text-center">
+              <%= image_tag @exercise.picture, class: 'img-fluid rounded' %>
+            </div>
+          <% end %>
+          <div class="text-center mt-3">
+            <%= link_to 'Back', exercises_path, class: 'btn btn-secondary' %>
+            <%= link_to 'Edit', edit_exercise_path(@exercise), class: 'btn btn-primary' %>
+            <%= link_to 'Delete', exercise_path(@exercise), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
