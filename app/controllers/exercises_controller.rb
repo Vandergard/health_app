@@ -13,6 +13,15 @@ class ExercisesController < ApplicationController
     end
   end
 
+  def search
+    query = params[:query]
+    @exercises = Exercise.where("name ILIKE ?", "%#{query}%")
+                          .or(Exercise.where("tags::text[] @> ARRAY[?]::text[]", [query]))
+                          .limit(10)
+  
+    render json: @exercises.to_json(only: [:id, :name, :description, :equipment, :tags])
+  end
+
   def show
     @exercise = Exercise.find(params[:id])
   end

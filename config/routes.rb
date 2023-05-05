@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   resources :patients, only: [:new, :create, :show]
   resources :trainings
   resources :articles
+  resources :exercises do
+    get 'search', on: :collection
+  end
   resources :exercises, only: [:new, :create, :show, :edit]
   root 'patients#index'
 end

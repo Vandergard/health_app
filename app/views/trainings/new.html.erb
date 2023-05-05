@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Training</title>
-    <link rel="stylesheet" href="create_training.css">
 </head>
 <body>
     <div class="container">
@@ -13,6 +12,8 @@
         <div class="search">
             <input type="text" id="exercise-search" placeholder="Search exercises...">
         </div>
+
+        <div id="search-results"></div>
         
         <table>
             <thead>
@@ -52,5 +53,6 @@
         
         <button type="submit">Create Training</button>
     </div>
+    <%= javascript_pack_tag 'exercise_search' %>
 </body>
 </html>
