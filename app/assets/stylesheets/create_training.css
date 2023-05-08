@@ -43,6 +43,11 @@ th {
     margin-bottom: 20px;
 }
 
+.ui-sortable-helper {
+    display: table;
+    position: relative;
+  }
+
 .info-item {
     flex: 1;
 }

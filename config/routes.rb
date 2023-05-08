@@ -29,7 +29,8 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   resources :patients, only: [:new, :create, :show]
-  resources :trainings
+  resources :trainings, only: [:new, :create, :show]
+  resources :training_sets
   resources :articles
   resources :exercises do
     get 'search', on: :collection

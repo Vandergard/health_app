@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_30_060337) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_08_162442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -105,7 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_060337) do
     t.index ["trainings_id"], name: "index_set_results_on_trainings_id"
   end
 
-  create_table "sets", force: :cascade do |t|
+  create_table "training_sets", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.bigint "exercise_id", null: false
@@ -114,7 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_060337) do
     t.integer "set_rest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["exercise_id"], name: "index_sets_on_exercise_id"
+    t.index ["exercise_id"], name: "index_training_sets_on_exercise_id"
   end
 
   create_table "trainings", force: :cascade do |t|
@@ -135,5 +135,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_30_060337) do
   add_foreign_key "set_results", "patients", column: "patients_id"
   add_foreign_key "set_results", "set_configs", column: "set_configs_id"
   add_foreign_key "set_results", "trainings", column: "trainings_id"
-  add_foreign_key "sets", "exercises"
+  add_foreign_key "training_sets", "exercises"
 end
