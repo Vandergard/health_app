@@ -25,8 +25,9 @@ $(document).ready(function () {
 
 
     $("#search-results").on("click", ".dropdown-item", function() {
+        const exerciseId = $(this).data('id');
         const exerciseName = $(this).text();
-        addExerciseToTable(exerciseName);
+        addExerciseToTable(exerciseName, exerciseId);
         clearSearchResults();
     });
 
@@ -73,7 +74,7 @@ $(document).ready(function () {
 
         const resultList = $("<div class='dropdown-menu show'></div>");
         results.forEach((result) => {
-        resultList.append(`<div class='dropdown-item'>${result.name}</div>`); // Замените `result.name` на актуальное свойство объекта, если имя упражнения хранится в другом поле
+        resultList.append(`<div class='dropdown-item' data-id='${result.id}'>${result.name}</div>`); // Замените `result.name` на актуальное свойство объекта, если имя упражнения хранится в другом поле
     });
 
         resultsContainer.append(resultList);
@@ -84,10 +85,11 @@ $(document).ready(function () {
         resultsContainer.empty();
     }
 
-    function addExerciseToTable(exerciseName) {
+    function addExerciseToTable(exerciseName, exerciseId) {
         const newRow = `
             <tr>
                 <td>${exerciseName}</td>
+                <input type="hidden" name="exercise_id" value="${exerciseId}">
                 <td><input type="number" class="form-control" min="1" step="1" name="reps"></td>
                 <td><input type="number" class="form-control" min="1" step="1" name="duration"></td>
                 <td><input type="number" class="form-control" min="1" step="1" name="sets_rest"></td>
@@ -109,40 +111,41 @@ $(document).ready(function () {
           category: $("#training-category").val(),
           difficulty: $("#training-difficulty").val(),
           description: $("#training-desc").val(),
-          sets: []
+          training_sets_attributes: [],
         };
     
         $("#set-table tbody tr").each(function() {
+          const exerciseId = parseInt($(this).find("input[name='exercise_id']").val());
           const exerciseName = $(this).find("td:first-child").text();
           const reps = $(this).find("input[name='reps']").val();
           const duration = $(this).find("input[name='duration']").val();
-          const sets_rest = $(this).find("input[name='sets_rest']").val();
-          const set_count = $(this).find("input[name='set_count']").val();
-          const set_config = $(this).find("input[name='set_config']").val();
+          const sets_rest = $(this).find("input[name='set_rest']").val();
+        //   const set_count = $(this).find("input[name='set_count']").val();
+        //   const set_config = $(this).find("input[name='set_config']").val();
     
-          trainingData.sets.push({
-            exerciseName,
+          trainingData.training_sets_attributes.push({
+            exercise_id: exerciseId,
             reps,
             duration,
             sets_rest,
-            set_count,
-            set_config
+            // set_count,
+            // set_config
           });
         });
     
         $.ajax({
-          url: "/trainings/create", // замените на актуальный путь для создания тренировки
+          url: "/trainings", // замените на актуальный путь для создания тренировки
           method: "POST",
           data: { training: trainingData },
           dataType: "json",
           success: function(response) {
             // перенаправление или обработка ответа
-            allert("Saved")
+            alert("Saved")
             console.log(response);
           },
           error: function(response) {
             // обработка ошибки
-            allert("Error")
+            alert("Error")
             console.error(response);
           }
         });

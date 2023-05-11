@@ -34,7 +34,7 @@ class TrainingSetsController < ApplicationController
   private
 
   def set_exercise
-    @exercise = Exercise.find(params[:exercise_id])
+    @exercise = Exercise.find(params[:exercise_id].to_i)
   end
 
   # PATCH/PUT /training_sets/1

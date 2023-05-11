@@ -6,7 +6,7 @@ class TrainingsController < ApplicationController
   end
 
   def create
-    training_params = params.require(:training).permit(:name, :category, :difficulty, :description, sets_attributes: [:exercise_id, :reps, :duration, :set_rest])
+    training_params = params.require(:training).permit(:name, :category, :difficulty, :description, training_sets_attributes: [:exercise_id, :reps, :duration, :set_rest])
   
     training = Training.new(
       name: training_params[:name],
@@ -16,9 +16,9 @@ class TrainingsController < ApplicationController
     )
   
     if training.save
-      training_params[:sets_attributes].each do |set_data|
+      training_params[:training_sets_attributes].each do |index, set_data|
         set = TrainingSet.create(
-          exercise_id: set_data[:exercise_id],
+          exercise_id: set_data[:exercise_id].to_i,
           reps: set_data[:reps],
           duration: set_data[:duration],
           set_rest: set_data[:set_rest]
