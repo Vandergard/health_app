@@ -97,6 +97,7 @@ $(document).ready(function () {
                 <td><input type="text" class="form-control" name="set_config"></td>
                 <td>
                     <button type="button" class="btn btn-danger remove-row">-</button>
+                    <button type="button" class="btn btn-success add-row">+</button>
                 </td>
             </tr>
         `;
@@ -104,6 +105,7 @@ $(document).ready(function () {
     }
 
     $("#create-training-form").submit(function(event) {
+        alert("Form submitted");
         event.preventDefault();
     
         const trainingData = {
