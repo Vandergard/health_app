@@ -1,2 +1,58 @@
-<h1>Trainings#new</h1>
-<p>Find me in app/views/trainings/new.html.erb</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Training</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Training</h1>
+        
+        <div class="search">
+            <input type="text" id="exercise-search" placeholder="Search exercises...">
+        </div>
+        <form id="create-training-form">
+            <div id="search-results" class="dropdown"></div>
+            <table id="set-table">
+                <thead>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Кол-во повторов</th>
+                        <th>Duration</th>
+                        <th>Sets Rest</th>
+                        <th>Set Count</th>
+                        <th>Set Config</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Add table rows for sets dynamically -->
+                </tbody>
+            </table>
+            
+            <div class="training-info">
+                <div class="info-item">
+                    <label for="training-name">Name:</label>
+                    <input type="text" id="training-name">
+                </div>
+                <div class="info-item">
+                    <label for="training-category">Category:</label>
+                    <input type="text" id="training-category">
+                </div>
+                <div class="info-item">
+                    <label for="training-difficulty">Difficulty:</label>
+                    <input type="text" id="training-difficulty">
+                </div>
+            </div>
+            
+            <div class="training-description">
+                <label for="training-desc">Description:</label>
+                <textarea id="training-desc" rows="4"></textarea>
+            </div>
+            
+            <button type="submit">Create Training</button>
+        </form>
+    </div>
+    <%= javascript_pack_tag 'create-training' %>
+</body>
+</html>

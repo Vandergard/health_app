@@ -22,12 +22,6 @@ class PatientsController < ApplicationController
     @patient = Patient.find(params[:id])
   end
 
-  def show
-  end
-
-  def edit
-  end
-
   def update
     if @patient.update(patient_params)
       redirect_to @patient, notice: 'Patient was successfully updated.'
