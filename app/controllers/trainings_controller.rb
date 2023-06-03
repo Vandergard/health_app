@@ -25,24 +25,39 @@ class TrainingsController < ApplicationController
       end
       training_params[:training_sets_attributes].each do |index, set_data|
         if set_data
-          set = TrainingSet.create(
-          exercise_id: set_data[:exercise_id].to_i,
-          reps: set_data[:reps],
-          duration: set_data[:duration],
-          set_rest: set_data[:set_rest],
-          count: set_data[:count],
-          description: set_data[:description]
-          )
-          training.sets << set
+          exercise = Exercise.find_by(id: set_data[:exercise_id].to_i)
+          if exercise
+            begin
+              set = TrainingSet.create!(
+                exercise_id: exercise.id,
+                reps: set_data[:reps],
+                duration: set_data[:duration],
+                set_rest: set_data[:set_rest],
+                count: set_data[:count],
+                description: set_data[:description]
+              )
+              Rails.logger.debug "Created set with id: #{set.id}"
+              training.sets << set.id
+              training.counts << set_data[:count]
+              training.rests << set_data[:set_rest]
+            rescue ActiveRecord::RecordInvalid => e
+              Rails.logger.debug "Failed to create TrainingSet: #{e.message}"
+            end
+          else
+            Rails.logger.debug "Exercise with id #{set_data[:exercise_id].to_i} does not exist"
+          end
         else
           Rails.logger.debug "Unexpected nil in training_sets_attributes at index #{index}"
         end
-      end 
+      end
+
       if training.save
         render json: { status: "success", message: "Training created successfully." }, status: :created
       else
         render json: { status: "error", message: "Error occurred while creating training.", errors: training.errors.full_messages  }, status: :unprocessable_entity
       end
+
+
     else
       render json: { status: "error", message: "Error occurred while creating training.", errors: training.errors.full_messages  }, status: :unprocessable_entity
     end

@@ -92,7 +92,7 @@ $(document).ready(function () {
                 <input type="hidden" name="exercise_id" value="${exerciseId}">
                 <td><input type="number" class="form-control" min="1" step="1" name="reps"></td>
                 <td><input type="number" class="form-control" min="1" step="1" name="duration"></td>
-                <td><input type="number" class="form-control" min="1" step="1" name="sets_rest"></td>
+                <td><input type="number" class="form-control" min="1" step="1" name="set_rest"></td>
                 <td><input type="number" class="form-control" min="1" step="1" name="set_count"></td>
                 <td><input type="text" class="form-control" name="set_description"></td>               
                 <td>
@@ -121,7 +121,7 @@ $(document).ready(function () {
           const exerciseName = $(this).find("td:first-child").text();
           const reps = $(this).find("input[name='reps']").val();
           const duration = $(this).find("input[name='duration']").val();
-          const sets_rest = $(this).find("input[name='set_rest']").val();
+          const set_rest = $(this).find("input[name='set_rest']").val();
           const count = $(this).find("input[name='set_count']").val();
           const description = $(this).find("input[name='set_description']").val();
     
@@ -129,7 +129,7 @@ $(document).ready(function () {
             exercise_id: exerciseId,
             reps,
             duration,
-            sets_rest,
+            set_rest,
             count,
             description
           });
