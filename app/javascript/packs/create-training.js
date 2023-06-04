@@ -94,7 +94,7 @@ $(document).ready(function () {
                 <td><input type="number" class="form-control" min="1" step="1" name="duration"></td>
                 <td><input type="number" class="form-control" min="1" step="1" name="set_rest"></td>
                 <td><input type="number" class="form-control" min="1" step="1" name="set_count"></td>
-                <td><input type="text" class="form-control" name="set_description"></td>               
+                <td><input type="number" class="form-control" name="after_set_rest"></td>               
                 <td>
                     <button type="button" class="btn btn-danger remove-row">-</button>
                     <button type="button" class="btn btn-success add-row">+</button>
@@ -123,7 +123,7 @@ $(document).ready(function () {
           const duration = $(this).find("input[name='duration']").val();
           const set_rest = $(this).find("input[name='set_rest']").val();
           const count = $(this).find("input[name='set_count']").val();
-          const description = $(this).find("input[name='set_description']").val();
+          const after_set_rest = $(this).find("input[name='after_set_rest']").val();
     
           trainingData.training_sets_attributes.push({
             exercise_id: exerciseId,
@@ -131,7 +131,7 @@ $(document).ready(function () {
             duration,
             set_rest,
             count,
-            description
+            after_set_rest
           });
         });
     

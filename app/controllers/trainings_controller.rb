@@ -6,7 +6,7 @@ class TrainingsController < ApplicationController
   end
 
   def create
-    training_params = params.require(:training).permit(:name, :category, :difficulty, :description, training_sets_attributes: [:exercise_id, :reps, :duration, :set_rest, :count, :description ])
+    training_params = params.require(:training).permit(:name, :category, :difficulty, :description, training_sets_attributes: [:exercise_id, :reps, :duration, :set_rest, :count, :after_set_rest ])
   
     training = Training.new(
       name: training_params[:name],
@@ -33,13 +33,12 @@ class TrainingsController < ApplicationController
                 reps: set_data[:reps],
                 duration: set_data[:duration],
                 set_rest: set_data[:set_rest],
-                count: set_data[:count],
-                description: set_data[:description]
+                count: set_data[:count]
               )
               Rails.logger.debug "Created set with id: #{set.id}"
               training.sets << set.id
               training.counts << set_data[:count]
-              training.rests << set_data[:set_rest]
+              training.rests << set_data[:after_set_rest]
             rescue ActiveRecord::RecordInvalid => e
               Rails.logger.debug "Failed to create TrainingSet: #{e.message}"
             end
@@ -64,7 +63,12 @@ class TrainingsController < ApplicationController
   end  
 
   def show
-    @training = Training.includes(training_sets: :exercise).find(params[:id])
+    @training = Training.find(params[:id])
+    @training_sets = TrainingSet.where(id: @training.sets)
+    # respond_to do |format|
+    #   format.html # Renders the default HTML view (training.html.erb)
+    #   format.json { render json: @training } # Renders the training details as JSON
+    # end
   end
 
   def edit

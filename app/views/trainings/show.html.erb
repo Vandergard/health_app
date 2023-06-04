@@ -1,2 +1,51 @@
-<h1>Trainings#show</h1>
-<p>Find me in app/views/trainings/show.html.erb</p>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Details</title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= stylesheet_link_tag 'trainings' %>
+</head>
+<body>
+    <div class="container">
+        <section>
+            <h1>Training Details</h1>
+
+            <h2>Name: <%= @training.name %></h2>
+            <p>Category: <%= @training.category %></p>
+            <p>Difficulty: <%= @training.difficulty %></p>
+            <p>Description: <%= @training.description %></p>
+        </section>
+
+        <section>
+            <h2>Training Sets</h2>
+            <table id="training-sets-table">
+                <thead>
+                    <tr>
+                        <th>Exercise</th>
+                        <th>Reps</th>
+                        <th>Duration</th>
+                        <th>Sets Rest</th>
+                        <th>Set Count</th>
+                        <th>After Set Rest</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @training_sets.each_with_index do |training_set, index| %>
+                        <tr>
+                            <td><%= training_set.exercise.name %></td>
+                            <td><%= training_set.reps %></td>
+                            <td><%= training_set.duration %></td>
+                            <td><%= training_set.set_rest %></td>
+                            <td><%= training_set.count %></td>
+                            <td><%= @training.rests[index].to_i unless @training.rests.nil? || @training.rests[index].nil? %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+         </section>
+    </div>
+</body>
+</html>
